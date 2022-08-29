@@ -14,7 +14,7 @@ var router = express_1.default.Router();
 //    res.render('index',{record})
 // });
 router.get('/', index_1.getMovies);
-router.get('/new', (req, res) => {
+router.get('/new', auth_1.auth, (req, res) => {
     res.render('new');
 });
 router.post('/', auth_1.auth, index_1.createMovie);

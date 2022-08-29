@@ -61,7 +61,10 @@ export async function RegisterUser(req:Request, res:Response, next:NextFunction)
              Error:validationResult.error.details[0].message
           })
        }
-       const User = await UserInstance.findOne({where:{email:req.body.email}}) as unknown as {[key:string]:string}
+       const User = await UserInstance.findOne({
+         where:{email:req.body.email},
+         include:[{model:MovieInstance, as: "tlmovies"}]
+      }) as unknown as {[key:string]:string}
         
        const {id} = User
        const token = generateToken({id})
@@ -77,9 +80,14 @@ export async function RegisterUser(req:Request, res:Response, next:NextFunction)
       if(validUser){
          res.cookie("token",token,{
             httpOnly:true,
-            secure:true
+            maxAge:1000 * 60 * 60 * 24
+         });
+         res.cookie("id",id,{
+            httpOnly:true,
+            maxAge: 1000 * 60 * 24
          })
-         res.redirect('/movies')
+        
+         return res.redirect('/dashboard')
          // res.status(200).json({
          //     message:"Successfully logged in",
          //     token,
@@ -99,6 +107,22 @@ export async function RegisterUser(req:Request, res:Response, next:NextFunction)
 }
 
 
+// export async function LogoutUser(req:Request, res:Response, next:NextFunction) {
+ 
+//   try{ 
+//         res.clearCookie("token")  
+//         res.clearCookie("id")     
+     
+// }catch(err){
+//    console.log(err)
+//   res.status(500).json({
+//    msg:'failed to login',
+//    route:'/login'
+//   })
+// }
+
+// }
+
 export async function getUsers(
    req: Request,
    res: Response,
@@ -116,7 +140,7 @@ export async function getUsers(
      ]
      });
      res.status(200).json({
-       msg: "You have successfully fetch all todos",
+       msg: "You have successfully fetch all movies",
        count: record.count,
        record: record.rows,
      });
@@ -127,3 +151,35 @@ export async function getUsers(
      });
    }
  }
+
+ export async function getUniqueUsersMovies(
+   req: Request,
+   res: Response,
+   next: NextFunction
+ ) {
+   let id = req.cookies.id
+   try {
+   //   const limit = req.query?.limit as number | undefined;
+   //   const offset = req.query?.offset as number | undefined;
+     //  const record = await TodoInstance.findAll({where: {},limit, offset})
+     const record = await UserInstance.findOne({ where: {id},
+     include:[{
+      model:MovieInstance,
+      as:'tlmovies'
+     }
+     ]
+     });
+     res.render("dashboard",{record})
+   //   res.status(200).json({
+   //     msg: "You have successfully fetch all Movies",
+   //     count: record,
+   //     record: record
+   //   });
+   } catch (error) {
+     res.status(500).json({
+       msg: "failed to read",
+       route: "/read",
+     });
+   }
+ }
+

@@ -13,9 +13,11 @@ var router = express.Router();
 // });
 router.get('/',getMovies)
 
-router.get('/new',(req,res)=>{
+router.get('/new',auth,(req,res)=>{
     res.render('new');
 })
+
+
 router.post('/',auth,createMovie)
 router.get('/:id',async (req,res,next)=>{
     let singleRecord = await getMovie(req,res,next)

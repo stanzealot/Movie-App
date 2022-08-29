@@ -11,8 +11,20 @@ router.get('/register', (req, res) => {
     res.render("register");
 });
 router.post('/register', userController_1.RegisterUser);
+router.get('/dashboard', userController_1.getUniqueUsersMovies);
+router.get('/unique', userController_1.getUsers);
 router.get('/login', (req, res) => {
     res.render("login");
 });
 router.post('/login', userController_1.LoginUser);
+router.get('/logout', (req, res) => {
+    try {
+        res.clearCookie("token");
+        res.clearCookie("id");
+        res.redirect('/movies');
+    }
+    catch (err) {
+        res.status(400).json({ msg: "error" });
+    }
+});
 exports.default = router;

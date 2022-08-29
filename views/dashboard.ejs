@@ -1,0 +1,65 @@
+<%-include('partials/head')%>
+		<div class="row">
+			<div id="menu">
+				<nav>
+					<div class="wrap-nav">
+					   <ul>
+                        <li class="active"><a href="/movies">Home</a></li>
+                        <li><a href="/movies/new">Creat Movie</a></li>
+                        <li><a href="/logout">Log Out</a></li>
+                        
+                        
+                        
+					   </ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<!--////////////////////////////////////Container-->
+<section id="container">
+	<div class="wrap-container zerogrid">
+
+		<!-- left part -->
+        
+
+        <div class="container text-center">
+            <div class="row">
+                <%for(let movie of record.tlmovies){%>
+                    
+                
+              <div class="col">
+                
+                <div class="card" style="width: 18rem;">
+                    <img src="<%=movie.image%>" class="card-img-top" alt="">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=movie.title%></h5>
+                      <p class="card-text"><%=movie.description%></p>
+                      <a href="/movies/<%=movie.id%>/edit" class="btn btn-primary">Edit</a>
+                      
+                    <form action="/movies/<%=movie.id%>?_method=DELETE" method="post" sytle="display:inline-block">
+                        <button class="btn btn-danger">Delete </button>
+                    </form>
+                     
+                    </div>
+                  </div>
+              </div>
+              
+              <%}%>
+              
+            </div>
+          </div>
+
+		
+
+		<!-- right Side bar -->
+
+		
+	</div>
+</section>
+
+<!--////////////////////////////////////Footer-->
+<%-include('partials/footer')%>

@@ -19,7 +19,7 @@ async function createMovie(req, res, next) {
             });
         }
         const record = await models_1.MovieInstance.create(movie);
-        return res.redirect('/movies');
+        return res.redirect('/dashboard');
         // res.status(201).json({ 
         //   msg: "You have successfully added a movie", 
         //   record
@@ -102,7 +102,7 @@ async function updateMovie(req, res, next) {
             image: image,
             price: price
         });
-        res.redirect("/movies");
+        res.redirect("/dashboard");
     }
     catch (error) {
         res.status(500).json({
@@ -122,10 +122,11 @@ async function deleteMovie(req, res, next) {
             });
         }
         const deletedRecord = await record.destroy();
-        return res.status(200).json({
-            msg: "Todo deleted successfully",
-            deletedRecord
-        });
+        res.redirect('/dashboard');
+        //  return res.status(200).json({
+        //     msg: "Todo deleted successfully",
+        //     deletedRecord 
+        //  })
     }
     catch (error) {
         res.status(500).json({
