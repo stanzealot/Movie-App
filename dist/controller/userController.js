@@ -38,7 +38,7 @@ async function RegisterUser(req, res, next) {
             email: req.body.email,
             password: passwordHash
         });
-        res.redirect("/movies");
+        res.redirect("/users/login");
         //  res.status(201).json({
         //      msg:"You have successfully created a user",
         //      record
@@ -82,7 +82,7 @@ async function LoginUser(req, res, next) {
                 httpOnly: true,
                 maxAge: 1000 * 60 * 24
             });
-            return res.redirect('/dashboard');
+            return res.redirect('/users/dashboard');
             // res.status(200).json({
             //     message:"Successfully logged in",
             //     token,

@@ -13,21 +13,21 @@ var router = express.Router();
 // });
 router.get('/',getMovies)
 
-router.get('/new',auth,(req,res)=>{
+router.get('/movies/new',auth,(req,res)=>{
     res.render('new');
 })
 
 
-router.post('/',auth,createMovie)
-router.get('/:id',async (req,res,next)=>{
+router.post('/movies',auth,createMovie)
+router.get('/movies/:id',auth,async (req,res,next)=>{
     let singleRecord = await getMovie(req,res,next)
     res.render("show",{singleRecord})
 })
-router.get('/:id/edit',async (req,res,next)=>{
+router.get('/movies/:id/edit',auth,async (req,res,next)=>{
     let singleRecord = await getMovie(req,res,next)
     res.render('edit',{singleRecord})
 })
-router.patch('/:id',auth,updateMovie)
-router.delete('/:id',auth,deleteMovie)
+router.patch('/movies/:id',auth,updateMovie)
+router.delete('/movies/:id',auth,deleteMovie)
 
 export default router;

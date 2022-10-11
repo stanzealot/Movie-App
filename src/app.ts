@@ -27,8 +27,10 @@ db.sync().then(()=>{
   console.log('Database connected Successfully')
 })
 
-app.use('/', indexRouter);
-app.use('/movies', usersRouter);
+app.use('/', usersRouter);
+app.use('/users', indexRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

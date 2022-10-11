@@ -25,8 +25,8 @@ app.use((0, method_override_1.default)('_method'));
 database_config_1.default.sync().then(() => {
     console.log('Database connected Successfully');
 });
-app.use('/', index_1.default);
-app.use('/movies', users_1.default);
+app.use('/', users_1.default);
+app.use('/users', index_1.default);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next((0, http_errors_1.default)(404));

@@ -14,18 +14,18 @@ var router = express_1.default.Router();
 //    res.render('index',{record})
 // });
 router.get('/', index_1.getMovies);
-router.get('/new', auth_1.auth, (req, res) => {
+router.get('/movies/new', auth_1.auth, (req, res) => {
     res.render('new');
 });
-router.post('/', auth_1.auth, index_1.createMovie);
-router.get('/:id', async (req, res, next) => {
+router.post('/movies', auth_1.auth, index_1.createMovie);
+router.get('/movies/:id', auth_1.auth, async (req, res, next) => {
     let singleRecord = await (0, index_1.getMovie)(req, res, next);
     res.render("show", { singleRecord });
 });
-router.get('/:id/edit', async (req, res, next) => {
+router.get('/movies/:id/edit', auth_1.auth, async (req, res, next) => {
     let singleRecord = await (0, index_1.getMovie)(req, res, next);
     res.render('edit', { singleRecord });
 });
-router.patch('/:id', auth_1.auth, index_1.updateMovie);
-router.delete('/:id', auth_1.auth, index_1.deleteMovie);
+router.patch('/movies/:id', auth_1.auth, index_1.updateMovie);
+router.delete('/movies/:id', auth_1.auth, index_1.deleteMovie);
 exports.default = router;

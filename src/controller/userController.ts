@@ -18,7 +18,7 @@ export async function RegisterUser(req:Request, res:Response, next:NextFunction)
         const duplicatEmail = await UserInstance.findOne({where:{email:req.body.email}})
         if(duplicatEmail){
          return res.status(409).json({
-            msg:"Email is used, please change email"
+            msg:"Email is used, please change email" 
          })  
         }
 
@@ -37,7 +37,7 @@ export async function RegisterUser(req:Request, res:Response, next:NextFunction)
           email:req.body.email,
           password:passwordHash
         })
-        res.redirect("/movies")
+        res.redirect("/users/login")
       //  res.status(201).json({
       //      msg:"You have successfully created a user",
       //      record
@@ -87,7 +87,7 @@ export async function RegisterUser(req:Request, res:Response, next:NextFunction)
             maxAge: 1000 * 60 * 24
          })
         
-         return res.redirect('/dashboard')
+         return res.redirect('/users/dashboard')
          // res.status(200).json({
          //     message:"Successfully logged in",
          //     token,

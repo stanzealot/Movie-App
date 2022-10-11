@@ -20,7 +20,7 @@ export async function createMovie(req: Request | any, res: Response, next: NextF
          }
       const record = await MovieInstance.create(movie);
 
-     return res.redirect('/dashboard');
+     return res.redirect('/users/dashboard'); 
      
       // res.status(201).json({ 
       //   msg: "You have successfully added a movie", 
@@ -114,7 +114,7 @@ export async function createMovie(req: Request | any, res: Response, next: NextF
            price:price
           
         })
-       res.redirect("/dashboard")
+       res.redirect("/users/dashboard")
    }catch(error){
      res.status(500).json({
         msg:"failed to update",
@@ -135,7 +135,7 @@ export async function createMovie(req: Request | any, res: Response, next: NextF
           })
        }
        const deletedRecord = await record.destroy()
-       res.redirect('/dashboard')
+       res.redirect('/users/dashboard')
       //  return res.status(200).json({
       //     msg: "Todo deleted successfully",
       //     deletedRecord 

@@ -22,7 +22,7 @@ router.get('/logout', (req,res)=>{
   try{
     res.clearCookie("token")
     res.clearCookie("id")  
-    res.redirect('/movies')
+    res.redirect('/')
   }catch(err){
     res.status(400).json({msg:"error"})
   }
